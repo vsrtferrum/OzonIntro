@@ -1,0 +1,53 @@
+type Post {
+    id: ID!
+    content: String!
+    comments(first: Int, after: String): CommentConnection! 
+}
+
+type Comment {
+    id: ID!
+    postId: ID!
+    text: String!
+}
+
+type CommentConnection {
+    edges: [CommentEdge!]!
+    pageInfo: PageInfo!
+}
+
+type CommentEdge {
+    node: Comment!
+    cursor: String!
+}
+
+type PageInfo {
+    hasNextPage: Boolean!
+    endCursor: String
+}
+
+type PostList {
+    id: ID!
+    comments: Boolean!
+}
+
+input WritePost {
+    text: String!
+    comments: Boolean!
+}
+
+input WriteComment {
+    post_id: ID!
+    comment_id: ID
+    isReferenceOnComment: Boolean!
+    text: String!
+}
+
+type Query {
+    posts: [PostList!]!
+    post(id: ID!): Post
+}
+
+type Mutation {
+    createPost(data: WritePost!): ID!
+    addComment(data: WriteComment!): ID!
+}

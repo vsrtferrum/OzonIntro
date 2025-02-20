@@ -14,9 +14,9 @@ type InMemoryStorage struct {
 	postMutex, commentMutex, commentRefsMutex sync.RWMutex
 }
 
-func NewInMemoryStorage() InMemoryStorage {
+func NewInMemoryStorage() *InMemoryStorage {
 	post, comment, commentsRefs := new([]model.Post), new([]model.Comments), new([]model.CommentRefs)
-	return InMemoryStorage{post: post, comment: comment, commentsRefs: commentsRefs}
+	return &InMemoryStorage{post: post, comment: comment, commentsRefs: commentsRefs}
 }
 
 func (inMemoryStorage *InMemoryStorage) GetPostsList() (*[]model.PostList, error) {
