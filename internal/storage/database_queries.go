@@ -20,4 +20,7 @@ var (
 		(text, comments)
 		VALUES ($1, $2)
 		RETURNING id;`
+	getCommentsStatus =`SELECT comments
+		FROM posts
+		WHERE id = $1`
 )

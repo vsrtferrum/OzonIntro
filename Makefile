@@ -41,4 +41,9 @@ migration-up:
 migration-down:
 	goose -dir "$(MIGRATION_FOLDER)" postgres "$(POSTGRES_SETUP)" down
 generate-schema:
-	go run github.com/99designs/gqlgen init
+	go run github.com/99designs/gqlgen generate
+#Используй sudo если нет доступа к pgdata
+build-ozonapi: 
+	docker build -t ozonapi . 
+up-ozonapi: 
+	docker run -p 8080:8080  ozonapi

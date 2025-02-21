@@ -14,4 +14,5 @@ var (
 	ErrCreateTransaction   = errors.New("error create transaction")
 	ErrExecTransaction     = errors.New("error exec transaction")
 	ErrCommitTransaction   = errors.New("error commit transaction")
+	ErrClosedComments 	   = errors.New("error comment not alowed")
 )

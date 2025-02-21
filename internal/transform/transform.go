@@ -2,6 +2,13 @@ package transform
 
 import "github.com/vsrtferrum/OzonIntro/internal/model"
 
+type Config struct {
+	ConnStr         string `json:"connStr"`         
+	DBStorage       bool   `json:"dbStorage"`      
+	WorkersCount    int    `json:"workersCount"`    
+	WorkersQueueLen int    `json:"workersQueueLen"`
+}
+
 type PostList struct {
 	Id       uint64 `db:"id"`
 	Comments bool   `db:"comments"`

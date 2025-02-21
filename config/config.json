@@ -1,0 +1,6 @@
+{
+    "connStr":"postgresql://user:5432@localhost:5430/OzonIntro",
+    "dbStorage":false,  
+    "workersCount": 10, 
+    "workersQueueLen": 100
+}

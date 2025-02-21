@@ -61,6 +61,27 @@ func (db *Database) GetPostById(id uint64) (*model.Post, *[]model.Comments, erro
 }
 
 func (db *Database) WriteComment(data *model.WriteComment) (uint64, error) {
+	rows, err := db.pool.Query(context.Background(), getCommentsStatus, data.PostId)
+	if err != nil {
+		return 0, errors.ErrSendQuery
+	}
+	var temp transform.Post
+	res := make([]transform.Post, 0, 1)
+	for rows.Next(){
+		err := rows.Scan(&temp.Comments)
+		if err != nil {
+			return 0, errors.ErrResultQuery
+		}
+		res = append(res, temp)
+		if len(res) > 1{
+			return 0, errors.ErrNonDeterministicId
+		}
+	}
+	
+	if !res[0].Comments{
+		return 0 , errors.ErrClosedComments
+	}
+	
 	tx, err := db.pool.BeginTx(context.Background(), pgx.TxOptions{})
 	if err != nil {
 		return 0, errors.ErrCreateTransaction

@@ -66,6 +66,10 @@ func (inMemoryStorage *InMemoryStorage) GetPostById(id uint64) (*model.Post, *[]
 
 }
 func (inMemoryStorage *InMemoryStorage) WriteComment(comment *model.WriteComment) (uint64, error) {
+	if !(*inMemoryStorage.post)[comment.PostId].Comments{
+		return 0, errors.ErrClosedComments
+	}
+	
 	inMemoryStorage.postMutex.Lock()
 	defer inMemoryStorage.postMutex.Unlock()
 
